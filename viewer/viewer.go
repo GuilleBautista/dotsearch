@@ -27,18 +27,7 @@ type GraphViewer struct {
 func (pv PathViewer) Print() {
     fmt.Printf("Cost: %f\nLength: %d\nNodes: %v\nIDs: %v \n", pv.Path.Cost, pv.Path.Length, pv.Path.Node_names, pv.Path.Node_ids)
 }
-/*
-func Print_graph_map(graph map[s.Node_t]map[s.Node_t]int){
-    for node, connections := range graph {
-        fmt.Printf("%s %f: ", node.Name, node.H)
-        for connection, weight := range connections{
-            fmt.Printf("%s:%f ", connection.Name, weight)
-        }
 
-        fmt.Printf("\n")
-    }
-}
-*/
 func (gv GraphViewer) Print(){
     for v := range gv.Graph.V {
         if gv.Graph.V[v].H >= 0 {
@@ -108,11 +97,17 @@ func (gv GraphViewer) View_png(dest_file string) error {
 		panic(err)
 	}
 
-    //out, err := exec.Command(fmt.Sprintf("ls")).Output()
-
     out, err := exec.Command("dot",  "-Tpng", tmpfile.Name()).Output()
+
+    if err != nil {
+        panic(err)
+    }
 
     err = os.WriteFile(dest_file, out, 0666)
 
+    if err != nil {
+        panic(err)
+    }
+    
     return err
 }
