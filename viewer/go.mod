@@ -1,4 +1,4 @@
-module github.com/guillebautista/dotsearch/algorithms/viewer
+module github.com/guillebautista/dotsearch/viewer
 
 go 1.16
 
