@@ -13,7 +13,7 @@ type Bnb struct {
 }
 
 //Generate succesors simple but checking duplicate nodes
-func (a Bnb) Generate_succesors(adj_matrix [][]int, path s.Path_t, last_v int, v []s.Node_t) *list.List {
+func (a Bnb) generate_succesors(adj_matrix [][]int, path s.Path_t, last_v int, v []s.Node_t) *list.List {
     succesors:=list.New()
     var newpath s.Path_t
     for i := range adj_matrix {
@@ -70,7 +70,7 @@ func (a Bnb) Solve()(s.Path_t, error){
         }
 
         //If it is not, generate its succesors
-        path_list.PushFrontList(a.Generate_succesors(adj_matrix, path, last_v, v))
+        path_list.PushFrontList(a.generate_succesors(adj_matrix, path, last_v, v))
     }
     
     return s.Path_t{}, errors.New(fmt.Sprintf("Could not reach %s from %s.", v[goal].Name, v[start].Name))

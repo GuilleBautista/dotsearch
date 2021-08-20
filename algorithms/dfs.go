@@ -4,7 +4,6 @@ import (
     "fmt"
     "container/list"
     s "github.com/guillebautista/dotsearch/structures"
-    "errors"
 )
 
 type Dfs struct {
@@ -12,7 +11,7 @@ type Dfs struct {
     Solution s.Path_t
 }
 
-func (a Dfs) Generate_succesors(adj_matrix [][]int, path s.Path_t, last_v int, v []s.Node_t) *list.List {
+func (a Dfs) generate_succesors(adj_matrix [][]int, path s.Path_t, last_v int, v []s.Node_t) *list.List {
     succesors:=list.New()
     var newpath s.Path_t
     for i := range adj_matrix {
@@ -33,7 +32,6 @@ func (a Dfs) Generate_succesors(adj_matrix [][]int, path s.Path_t, last_v int, v
 
 //Depth first search. Set max depth to -1 for no limit.
 func (a Dfs) Solve(max_depth int)(s.Path_t, error){
-    var expanded_nodes int
     //Gather the data
     start := a.Graph.Start
     goal := a.Graph.Goal
@@ -41,6 +39,10 @@ func (a Dfs) Solve(max_depth int)(s.Path_t, error){
     v := a.Graph.V
     path_list := list.New()
     
+    if max_depth < 0 {
+        max_depth=len(adj_matrix)
+    }
+
     path_list.PushBack( s.Path_t{
         Cost: 0,
         Length: 0,
@@ -66,16 +68,13 @@ func (a Dfs) Solve(max_depth int)(s.Path_t, error){
             }
             return path, nil
         }
-        if max_depth >= 0 {
-            expanded_nodes++
-            if expanded_nodes == max_depth {
-                return s.Path_t{}, errors.New(fmt.Sprintf("Max depth reached (%d).", max_depth))
-            }
-        }
-        //If it is not, generate its succesors
-        path_list.PushFrontList(a.Generate_succesors(adj_matrix, path, last_v, v))
 
+        if path.Length <= max_depth {
+            //If it is not, generate its succesors
+            path_list.PushFrontList(a.generate_succesors(adj_matrix, path, last_v, v))
+        }
     }
-    
-    return s.Path_t{}, errors.New(fmt.Sprintf("Could not reach %s from %s.", v[goal].Name, v[start].Name))    
+
+    fmt.Printf("Could not reach %s from %s.", v[goal].Name, v[start].Name)
+    return s.Path_t{}, nil    
 }

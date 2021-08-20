@@ -25,6 +25,7 @@ type Parser interface {
 //Struct graph parser implements the parser interface
 type GraphParser struct{
     File string
+    //Allow transitions that start and end in the same node
     Allow_recursive bool
     Verbose bool
 }

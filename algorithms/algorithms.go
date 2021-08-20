@@ -1,15 +1,18 @@
 package algorithms
 
 import (
-    "container/list"
     s "github.com/guillebautista/dotsearch/structures"
 )
 
 //Each algorithm will implement the solver interface
 type Solver interface {
-    Solve() s.Path_t
-    Generate_succesors() *list.List
+    Solve() (s.Path_t, error)
 }
+
+type IterativeSolver interface {
+    Solve(max_depth int) (s.Path_t, error)
+}
+
 
 //Common find function for all the algorithms
 func find(elem int, list []int) bool {

@@ -13,7 +13,7 @@ type Amplitude struct {
 }
 
 //Simple function to generate all succesors of a node without any further checks
-func (a Amplitude) Generate_succesors(adj_matrix [][]int, path s.Path_t, last_v int, v []s.Node_t) *list.List {
+func (a Amplitude) generate_succesors(adj_matrix [][]int, path s.Path_t, last_v int, v []s.Node_t) *list.List {
     succesors:=list.New()
     var newpath s.Path_t
     for i := range adj_matrix {
@@ -71,7 +71,7 @@ func (a Amplitude) Solve()(s.Path_t, error){
 
         expanded_nodes++
         //If it is not, generate its succesors
-        path_list.PushBackList(a.Generate_succesors(adj_matrix, path, last_v, v))
+        path_list.PushBackList(a.generate_succesors(adj_matrix, path, last_v, v))
 
     }
     

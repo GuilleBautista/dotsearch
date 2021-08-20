@@ -16,7 +16,7 @@ type Astar struct {
 }
 
 //Simple function to generate all succesors of a node without any further checks
-func (a Astar) Generate_succesors(adj_matrix [][]int, path s.Path_t, last_v int, v []s.Node_t, closed []bool, open []int) []s.Path_t {
+func (a Astar) generate_succesors(adj_matrix [][]int, path s.Path_t, last_v int, v []s.Node_t, closed []bool, open []int) []s.Path_t {
     var succesors []s.Path_t
     var newpath s.Path_t
 	
@@ -112,7 +112,7 @@ func (a Astar) Solve()(s.Path_t, error){
 
 		closed[last_v]=true
         //If it is not, generate its succesors
-        succesors := a.Generate_succesors(adj_matrix, path, last_v, v, closed, open)
+        succesors := a.generate_succesors(adj_matrix, path, last_v, v, closed, open)
 
 		i := 0
 		marked := make([]bool, len(adj_matrix))
