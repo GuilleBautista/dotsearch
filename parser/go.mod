@@ -1,4 +1,4 @@
-module github.com/guillebautista/dotsearch/algorithms/parser
+module github.com/guillebautista/dotsearch/parser
 
 go 1.16
 
