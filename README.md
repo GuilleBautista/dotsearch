@@ -1,5 +1,5 @@
 # Dotsearch
-Search library using golang. 
+Search library using Go. 
 
 The library itself has different modules:
 ## Structures Module
